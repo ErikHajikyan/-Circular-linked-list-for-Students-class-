@@ -1,0 +1,93 @@
+class Student:
+    def __init__(self,name,ID,GPA):
+        self.name = name
+        self.GPA = GPA
+        self.ID = ID
+        self.next = None
+        self.prev = None
+
+class Class:
+    def __init__(self):
+        self.__head = None
+
+    def setHead(self, name,ID,GPA):
+        self.__head = Student(name,ID,GPA)
+        self.__head.next = self.__head
+        self.__head.previous = self.__head
+
+
+    def find(self, name,ID):
+        temp = self.__head
+        while temp.next is not self.__head and temp.next != name and temp.next !=ID:
+            temp = temp.next
+        return True
+
+
+
+    def append(self, name,ID,GPA):
+        newStudent = Student(name,ID,GPA)
+        temp = self.__head
+        while temp.next is not self.__head:
+            temp = temp.next
+
+        newStudent.previous = temp
+        temp.next = newStudent
+        newStudent.next = self.__head
+        self.__head.previous = newStudent
+        
+    def addAtBegining(self, name,ID,GPA):
+        newStudent = Student(name,ID,GPA)
+        newStudent.next = self.__head
+        newStudent.previous = self.__head.previous
+        self.__head = newStudent
+        self.__head.next.previous = self.__head
+        self.__head.previous.next = self.__head
+
+    def display(self):
+        temp = self.__head
+        print "List of students"
+        print "========="
+        while temp:
+            print "Name:",temp.name,"\n""ID:",temp.ID,"\n""GPA:",temp.GPA
+            print "========"
+            temp = temp.next
+            if temp == self.__head:
+                break
+
+    def delete(self, name,ID):
+        temp = self.__head
+        while temp.next is not self.__head and temp.name != name and temp.ID != ID:
+            temp = temp.next
+
+        temp.previous.next = temp.next
+        temp.next.previous = temp.previous
+
+    def reverse(self):
+        temp = self.__head.previous
+        while temp is not self.__head:
+            next = temp.previous
+            temp.previous = temp.next
+            temp.next = next
+            temp = temp.next
+
+        temp.previous = temp.next
+        self.__head = temp.next
+
+
+
+
+
+def main():
+    
+    students= Class()
+    students.setHead("Max","0304034",2)
+    students.append("Bob","23424234",3)
+    students.addAtBegining("Rob","3234234",3)
+    students.display()
+    #students.delete("Bob","3242343")
+    #students.display()
+    #students.reverse()
+    #students.display()
+
+main()
+    

@@ -16,11 +16,11 @@ class Class:
         self.__head.previous = self.__head
 
 
-    def find(self, name,ID):
+    def find(self, ID):
         temp = self.__head
-        while temp.next is not self.__head and temp.next != name and temp.next !=ID:
+        while temp.next is not self.__head and temp.ID !=ID:
             temp = temp.next
-        return True
+        print temp.name, "is in the class"
 
 
 
@@ -84,6 +84,7 @@ def main():
     students.append("Bob","23424234",3)
     students.addAtBegining("Rob","3234234",3)
     students.display()
+    #students.find("3234234")
     #students.delete("Bob","3242343")
     #students.display()
     #students.reverse()
